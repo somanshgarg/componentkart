@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ComponentKart - Modern Indian Marketplace</title>
+  <!-- Google Fonts: Outfit for Headings, Inter for Body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    // Applied before first paint to avoid a flash of the wrong theme.
+    (function () {
+      var theme = localStorage.getItem('ck_theme') || 'dark';
+      if (theme === 'light') document.documentElement.classList.add('theme-light');
+    })();
+  </script>
+</head>
+<body>
+
+  <a href="#main-content-anchor" class="skip-to-content-link" data-info-name="skip link" data-info-category="Navigation" data-info-desc="A link that is invisible until keyboard-focused, letting keyboard/screen-reader users jump past the navbar straight to the main content.">Skip to content</a>
+
+  <!-- Top View Switcher & Helper Control Bar -->
+  <div class="top-control-bar" data-info-name="container / panel" data-info-category="Display & Content" data-info-desc="A structural container panel that groups related sections of the user interface.">
+    <div class="control-left">
+      <span class="control-title">ComponentKart Control Panel</span>
+    </div>
+    <div class="control-center">
+      <div class="view-switcher-group" data-info-name="segmented control" data-info-category="Navigation" data-info-desc="A joined pair of buttons that switches views of the same content, unlike a button group which runs separate actions.">
+        <button id="btn-switch-shop" class="switcher-btn active">🛍️ Shop Storefront</button>
+        <button id="btn-switch-manage" class="switcher-btn">📊 Seller Dashboard</button>
+      </div>
+    </div>
+    <div class="control-right">
+      <div class="info-mode-toggle-container">
+        <span class="info-toggle-label">Info Mode ("What's this?")</span>
+        <label class="toggle-switch-wrapper" data-info-name="toggle switch" data-info-category="Inputs & Forms" data-info-desc="A sliding on/off control for a single setting, unlike a checkbox which selects multiple items in a list.">
+          <input type="checkbox" id="info-mode-toggle">
+          <span class="toggle-switch-slider"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SHOP STOREFRONT ================= -->
+  <div id="shop-side" class="side-container">
+    <!-- Navbar -->
+    <header class="navbar" data-info-name="container / panel" data-info-category="Display & Content" data-info-desc="A structural container panel that groups related sections of the user interface.">
+      <div class="navbar-left">
+        <button id="mobile-hamburger" class="icon-btn mobile-only" data-info-name="hamburger menu" data-info-category="Navigation" data-info-desc="A three-line navigation button that slides open a side drawer menu on narrow mobile viewports.">
+          <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+        </button>
+        <a href="#" id="shop-logo" class="logo" data-info-name="logo" data-info-category="Navigation" data-info-desc="A brand mark link representing the store homepage, redirecting the user back to the home view.">
+          <span class="logo-accent">Component</span>Kart
+        </a>
+        <div class="mega-menu-trigger-container desktop-only">
+          <button class="mega-menu-btn" data-info-name="link" data-info-category="Navigation" data-info-desc="A clickable hyperlink navigation item that routes the user to a different view or document.">Categories ▾</button>
+          <!-- Mega Menu Dropdown -->
+          <div class="mega-menu-panel" data-info-name="mega menu" data-info-category="Navigation" data-info-desc="A wide, multi-column dropdown panel showing category groups that opens on hover or tap.">
+            <div class="mega-menu-column">
+              <h4>Electronics</h4>
+              <a href="#" class="category-link" data-category="Electronics" data-subcategory="Audio">Audio</a>
+              <a href="#" class="category-link" data-category="Electronics" data-subcategory="Mobile">Mobile Devices</a>
+              <a href="#" class="category-link" data-category="Electronics" data-subcategory="Computers">Computers</a>
+            </div>
+            <div class="mega-menu-column">
+              <h4>Clothing</h4>
+              <a href="#" class="category-link" data-category="Clothing" data-subcategory="Men">Men's Wear</a>
+              <a href="#" class="category-link" data-category="Clothing" data-subcategory="Women">Women's Wear</a>
+              <a href="#" class="category-link" data-category="Clothing" data-subcategory="Unisex">Unisex</a>
+            </div>
+            <div class="mega-menu-column">
+              <h4>Home & Kitchen</h4>
+              <a href="#" class="category-link" data-category="Home Goods" data-subcategory="Kitchen">Kitchenware</a>
+              <a href="#" class="category-link" data-category="Home Goods" data-subcategory="Bedroom">Bedroom</a>
+              <a href="#" class="category-link" data-category="Home Goods" data-subcategory="Living Room">Living Room</a>
+            </div>
+            <div class="mega-menu-column">
+              <h4>Others</h4>
+              <a href="#" class="category-link" data-category="Groceries">Groceries</a>
+              <a href="#" class="category-link" data-category="Sports & Fitness">Sports & Fitness</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="navbar-center search-container">
+        <div class="search-bar-wrapper" data-info-name="search bar" data-info-category="Inputs & Forms" data-info-desc="A text input field with autocomplete suggestions for searching items in the catalog.">
+          <input type="text" id="search-input" placeholder="Search for electronics, clothes, groceries...">
+          <button id="search-btn" class="search-icon-btn">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          </button>
+          <button id="btn-open-command-palette" class="command-palette-trigger-btn desktop-only" data-info-name="command palette" data-info-category="Navigation" data-info-desc="A keyboard-triggered search overlay that jumps to any page or product, unlike the navbar search bar which only searches within the catalog listing.">
+            <kbd>Ctrl</kbd><kbd>K</kbd>
+          </button>
+        </div>
+        <!-- Search suggestions / Autocomplete -->
+        <div id="search-suggestions" class="search-suggestions-dropdown hidden">
+          <div class="suggestions-section popular-searches">
+            <span class="section-title">Popular Searches</span>
+            <div class="suggestions-chips">
+              <span class="suggestion-chip">Earbuds</span>
+              <span class="suggestion-chip">Yoga Mat</span>
+              <span class="suggestion-chip">Ghee</span>
+              <span class="suggestion-chip">Tiffin</span>
+            </div>
+          </div>
+          <div class="suggestions-section autocomplete-results hidden">
+            <span class="section-title">Matching Products</span>
+            <ul id="autocomplete-list">
+              <!-- Dynamically populated -->
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="navbar-right">
+        <!-- Notification Center Bell -->
+        <div class="nav-icon-container">
+          <button id="btn-notifications" class="icon-btn" data-info-name="notification bell" data-info-category="Navigation" data-info-desc="An icon button that reveals a list of recent order status updates and store promotions.">
+            <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+            <span id="notification-badge" class="badge" data-info-name="badge" data-info-category="Display & Content" data-info-desc="A small colored tag showing the count of unread notifications.">3</span>
+            <span id="notification-dot" class="notification-dot" data-info-name="notification dot" data-info-category="Display & Content" data-info-desc="A small dot indicating unread activity exists, unlike a badge which also shows a count."></span>
+          </button>
+          <!-- Notification Center Popover -->
+          <div id="notification-popover" class="notification-popover hidden" data-info-name="popover" data-info-category="Overlays & Feedback" data-info-desc="A small panel anchored to and pointing at the element that opened it, opened by clicking, unlike a tooltip which opens on hover.">
+            <div class="popover-header">
+              <h3>Notifications</h3>
+              <button id="btn-mark-all-read" class="text-link-btn">Mark all read</button>
+            </div>
+            <div class="popover-content" id="notification-list">
+              <!-- Dynamically populated -->
+            </div>
+            <div class="popover-footer">
+              <button id="btn-view-all-notifications" class="text-link-btn">View all activity</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wishlist Link -->
+        <button id="btn-wishlist" class="icon-btn" data-info-name="wishlist heart" data-info-category="Navigation" data-info-desc="An icon button linking to the shopper's wishlist page, showing saved products count.">
+          <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          <span id="wishlist-badge" class="badge" data-info-name="badge" data-info-category="Display & Content" data-info-desc="A small colored tag showing the count of saved wishlist items.">4</span>
+        </button>
+
+        <!-- Cart Trigger -->
+        <button id="btn-cart" class="icon-btn" data-info-name="cart" data-info-category="Navigation" data-info-desc="An icon button that slides out the shopping cart drawer to review items and check out.">
+          <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          <span id="cart-badge" class="badge" data-info-name="badge" data-info-category="Display & Content" data-info-desc="A small colored tag showing the count of items in the cart.">0</span>
+        </button>
+
+        <!-- Profile Avatar Menu -->
+        <div class="avatar-menu-container">
+          <button id="btn-avatar" class="avatar-btn" data-info-name="avatar" data-info-category="Display & Content" data-info-desc="A small profile image or initials badge representing the logged-in user.">
+            <span class="avatar-circle">U</span>
+          </button>
+          <div id="avatar-dropdown" class="avatar-dropdown hidden" data-info-name="profile menu / avatar menu" data-info-category="Navigation" data-info-desc="A dropdown action menu showing account shortcuts like profile settings and order history.">
+            <button id="btn-goto-orders" class="dropdown-item">📦 My Orders</button>
+            <button id="btn-goto-wishlist" class="dropdown-item">❤️ My Wishlist</button>
+            <button id="btn-goto-settings" class="dropdown-item">⚙️ Account Settings</button>
+            <div class="dropdown-divider" data-info-name="divider" data-info-category="Display & Content" data-info-desc="A thin decorative line that visually separates items or layout sections."></div>
+            <button id="btn-signin-trigger" class="dropdown-item">🔑 Sign In</button>
+            <button id="btn-logout" class="dropdown-item text-danger">🚪 Logout</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Side Drawer (Hamburger Menu) -->
+    <div id="mobile-drawer" class="mobile-drawer hidden">
+      <div class="drawer-header">
+        <h3>Menu</h3>
+        <button id="btn-close-drawer" class="icon-btn" data-info-name="close button" data-info-category="Inputs & Forms" data-info-desc="A small icon button that dismisses the overlay or panel it's attached to.">
+          <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </div>
+      <div class="drawer-content">
+        <div class="drawer-section">
+          <h4>Pages</h4>
+          <button class="drawer-link drawer-nav-link" data-view="home">🏠 Home</button>
+          <button class="drawer-link drawer-nav-link" data-view="listing">🔍 Browse All</button>
+          <button class="drawer-link drawer-nav-link" data-view="orders">📦 My Orders</button>
+          <button class="drawer-link drawer-nav-link" data-view="wishlist">❤️ Wishlist</button>
+          <button class="drawer-link drawer-nav-link" data-view="settings">⚙️ Settings</button>
+        </div>
+        <div class="drawer-section">
+          <h4>Categories</h4>
+          <a href="#" class="drawer-link" data-category="Electronics">Electronics</a>
+          <a href="#" class="drawer-link" data-category="Clothing">Clothing</a>
+          <a href="#" class="drawer-link" data-category="Home Goods">Home Goods</a>
+          <a href="#" class="drawer-link" data-category="Groceries">Groceries</a>
+          <a href="#" class="drawer-link" data-category="Sports & Fitness">Sports & Fitness</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN VIEW CONTAINER -->
+    <main class="shop-main-content" id="main-content-anchor" tabindex="-1">
+      <!-- Pull to refresh loading spinner -->
+      <div id="pull-to-refresh-indicator" class="pull-to-refresh-indicator hidden" data-info-name="pull-to-refresh" data-info-category="Navigation" data-info-desc="A pull gestures detection mechanic that refreshes the page feed when dragged downwards.">
+        <div class="refresh-spinner" data-info-name="loading spinner" data-info-category="Overlays & Feedback" data-info-desc="A rotating animated indicator displaying background network loading progress."></div>
+        <span>Refreshing...</span>
+      </div>
+
+      <!-- VIEW 1: HOME PAGE -->
+      <section id="view-home" class="shop-view">
+        <!-- Category Quick Rail -->
+        <div class="category-quick-rail" data-info-name="category rail" data-info-category="Navigation" data-info-desc="A visual horizontal strip of category shortcuts with icons for fast browsing.">
+          <button class="cat-rail-item category-link" data-category="Electronics">
+            <div class="cat-icon-circle electronics">🎧</div>
+            <span>Electronics</span>
+          </button>
+          <button class="cat-rail-item category-link" data-category="Clothing">
+            <div class="cat-icon-circle clothing">👗</div>
+            <span>Fashion</span>
+          </button>
+          <button class="cat-rail-item category-link" data-category="Home Goods">
+            <div class="cat-icon-circle home">🏠</div>
+            <span>Home & Kitchen</span>
+          </button>
+          <button class="cat-rail-item category-link" data-category="Groceries">
+            <div class="cat-icon-circle groceries">🛒</div>
+            <span>Groceries</span>
+          </button>
+          <button class="cat-rail-item category-link" data-category="Sports & Fitness">
+            <div class="cat-icon-circle sports">🏋️‍♂️</div>
+            <span>Fitness</span>
+          </button>
+        </div>
+
+        <!-- Hero Section -->
+        <div class="hero-section" data-info-name="hero-section" data-info-category="Display & Content" data-info-desc="A dominant promotional banner area highlighted with headlines, banners, and call-to-actions.">
+          <div class="hero-content">
+            <span class="hero-badge">⚡ Festive Deals • Limited Period</span>
+            <h1>The Grand Indian Sale is LIVE!</h1>
+            <p>Get up to 60% off on electronics, clothing, lifestyle essentials & fitness equipment.</p>
+            <button id="hero-cta-btn" class="primary-btn" data-info-name="primary button" data-info-category="Inputs & Forms" data-info-desc="The main action button to proceed with the primary task on the page, unlike a secondary button.">Shop the Sale</button>
+          </div>
+        </div>
+
+        <!-- Trust & Value Propositions Strip -->
+        <div class="trust-value-strip" data-info-name="value proposition strip" data-info-category="Display & Content" data-info-desc="A trust badge strip highlighting free shipping, easy returns, secure payments, and authentic products.">
+          <div class="trust-item">
+            <span class="trust-icon">🚚</span>
+            <div class="trust-text">
+              <strong>Free Express Shipping</strong>
+              <small>On orders above ₹499</small>
+            </div>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">🔄</span>
+            <div class="trust-text">
+              <strong>7-Day Easy Returns</strong>
+              <small>Instant refund policy</small>
+            </div>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">🔒</span>
+            <div class="trust-text">
+              <strong>100% Secure Payment</strong>
+              <small>UPI, Cards & NetBanking</small>
+            </div>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">⚡</span>
+            <div class="trust-text">
+              <strong>KartAssured Sellers</strong>
+              <small>Verified quality checks</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Carousel / Offer Slider -->
+        <div class="carousel-container" id="offers-carousel" data-info-name="carousel / slider" data-info-category="Display & Content" data-info-desc="A rotating slideshow banner panel displaying multiple marketing offers with dot and arrow navigation.">
+          <div class="carousel-track" id="carousel-track">
+            <div class="carousel-slide slide-1">
+              <h2>Top Deals on Wireless Audio</h2>
+              <p>boAt, Noise, OnePlus starting at ₹999</p>
+            </div>
+            <div class="carousel-slide slide-2">
+              <h2>Trendy Indian Ethnic Wear</h2>
+              <p>Kurtas and Salwar Sets at flat 40% Off</p>
+            </div>
+            <div class="carousel-slide slide-3">
+              <h2>Kitchen Ware & Smart Home</h2>
+              <p>Milton & Prestige sets at best Indian prices</p>
+            </div>
+          </div>
+          <button class="carousel-btn prev-btn">&lt;</button>
+          <button class="carousel-btn next-btn">&gt;</button>
+          <div class="carousel-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+        </div>
+
+        <!-- Quick Filters Category Chips -->
+        <div class="chips-container" data-info-name="chips / tags" data-info-category="Navigation" data-info-desc="Horizontal tag pills indicating selectable attributes that apply quick filters to the listing view.">
+          <span class="chip-tag active" data-filter="all">All Items</span>
+          <span class="chip-tag" data-filter="under-499">Under ₹499</span>
+          <span class="chip-tag" data-filter="top-rated">Top Rated ⭐</span>
+          <span class="chip-tag" data-filter="deals">Deals of the Day</span>
+        </div>
+
+        <!-- Trending Now & Deals sections -->
+        <div class="home-grids">
+          <div class="grid-section">
+            <h2 class="section-heading">🔥 Trending Now</h2>
+            <div class="products-grid" id="trending-grid">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+
+          <div class="grid-section">
+            <div class="deals-header-bar">
+              <h2 class="section-heading">⚡ Deals of the Day</h2>
+              <div class="deals-countdown-timer" id="deals-countdown" data-info-name="countdown timer" data-info-category="Display & Content" data-info-desc="A live ticking countdown clock showing time remaining for daily discount offers.">
+                <span class="timer-label">Ends in:</span>
+                <span class="timer-badge" id="timer-hours">05</span>:<span class="timer-badge" id="timer-mins">42</span>:<span class="timer-badge" id="timer-secs">19</span>
+              </div>
+            </div>
+            <div class="products-grid" id="deals-grid">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonials Carousel -->
+        <div class="grid-section">
+          <h2 class="section-heading">What Shoppers Are Saying</h2>
+          <div class="carousel-container testimonials-carousel-container" id="testimonials-carousel" data-info-name="carousel / slider" data-info-category="Display & Content" data-info-desc="A rotating slideshow panel displaying multiple marketing offers with dot and arrow navigation, reused here for customer testimonials.">
+            <div class="carousel-track" id="testimonials-carousel-track">
+              <!-- Populated dynamically from TESTIMONIALS -->
+            </div>
+            <button class="carousel-btn prev-btn">&lt;</button>
+            <button class="carousel-btn next-btn">&gt;</button>
+            <div class="carousel-dots" id="testimonials-carousel-dots"></div>
+          </div>
+        </div>
+
+        <!-- Recently Viewed Rail -->
+        <div class="recently-viewed-rail hidden" data-info-name="recently viewed rail" data-info-category="Display & Content" data-info-desc="A horizontally scrolling row of products you looked at recently, unlike the curated Trending/Deals rows above.">
+          <h2 class="section-heading">Recently Viewed</h2>
+          <div class="recently-viewed-scroll" id="home-recently-viewed-grid">
+            <!-- Populated dynamically from state.recentlyViewed -->
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 2: PRODUCT LISTING & SEARCH RESULTS -->
+      <section id="view-listing" class="shop-view hidden">
+        <!-- Breadcrumbs -->
+        <div class="breadcrumbs-container" data-info-name="breadcrumbs" data-info-category="Navigation" data-info-desc="A trail of clickable page links representing hierarchical paths back to the home page view.">
+          <a href="#" class="breadcrumb-home">Home</a> ›
+          <span class="breadcrumb-segment-wrapper">
+            <button id="breadcrumb-current" class="breadcrumb-segment">All Products</button>
+            <div id="breadcrumb-dropdown-listing" class="breadcrumb-dropdown hidden" data-info-name="popover" data-info-category="Overlays & Feedback" data-info-desc="A small panel anchored to and pointing at the element that opened it, opened by clicking, unlike a tooltip which opens on hover.">
+              <!-- Populated dynamically with sibling categories -->
+            </div>
+          </span>
+        </div>
+
+        <div class="listing-header">
+          <div class="listing-title-block">
+            <h2 id="listing-title">Browse Catalog</h2>
+            <span id="result-count" class="result-count">Showing all items</span>
+          </div>
+          <div class="listing-controls">
+            <!-- Segmented Control -->
+            <div class="segmented-control" data-info-name="segmented control" data-info-category="Navigation" data-info-desc="A joined pair of buttons that switches views of the same content, unlike a button group which runs separate actions.">
+              <button id="view-mode-grid" class="control-btn active">Grid</button>
+              <button id="view-mode-list" class="control-btn">List</button>
+            </div>
+            <!-- Sort dropdown -->
+            <div class="sort-selector">
+              <label for="sort-dropdown">Sort by:</label>
+              <select id="sort-dropdown" class="select-dropdown" data-info-name="sort dropdown" data-info-category="Inputs & Forms" data-info-desc="A drop-down select control that reorders products, unlike a custom select selector.">
+                <option value="popularity">Popularity</option>
+                <option value="price-low-high">Price: Low to High</option>
+                <option value="price-high-low">Price: High to Low</option>
+                <option value="rating">Average Rating</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="listing-layout">
+          <!-- Faceted Filter Panel -->
+          <aside class="filter-panel" data-info-name="filter panel" data-info-category="Display & Content" data-info-desc="A panel listing multiple filtering facets to refine listings, collapsable on mobile viewports.">
+            <div class="filter-header">
+              <h3>Filters</h3>
+              <button id="btn-clear-filters" class="text-link-btn" data-info-name="link" data-info-category="Navigation" data-info-desc="A clickable hyperlink navigation item that routes the user to a different view or document.">Clear all</button>
+            </div>
+            
+            <div class="filter-group">
+              <h4>Categories</h4>
+              <div id="filter-categories-list" class="filter-options-list">
+                <!-- Dynamically populated categories checkboxes -->
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <h4>Brand</h4>
+              <div id="filter-brands-list" class="filter-options-list">
+                <!-- Dynamically populated brand checkboxes -->
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <h4>Price Range (₹)</h4>
+              <div class="range-slider-wrapper" data-info-name="range slider" data-info-category="Inputs & Forms" data-info-desc="A slider selector with two draggable thumb handles setting minimum and maximum price boundaries.">
+                <input type="range" id="price-min" min="0" max="10000" value="0">
+                <input type="range" id="price-max" min="0" max="10000" value="10000">
+                <div class="slider-track-visual"></div>
+                <div class="range-values">
+                  <span>Min: ₹<span id="price-min-val">0</span></span>
+                  <span>Max: ₹<span id="price-max-val">10000</span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <h4>Delivery Speed</h4>
+              <div class="radio-group">
+                <label class="radio-label">
+                  <input type="radio" name="delivery-speed" value="all" checked data-info-name="radio buttons" data-info-category="Inputs & Forms" data-info-desc="A group of circle controls where exactly one choice must be chosen, unlike a select dropdown.">
+                  <span>Any Speed</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="delivery-speed" value="express" data-info-name="radio buttons" data-info-category="Inputs & Forms" data-info-desc="A group of circle controls where exactly one choice must be chosen, unlike a select dropdown.">
+                  <span>Express Delivery (Same Day)</span>
+                </label>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Main Listing Results Grid / List -->
+          <div class="listing-results-container">
+            <div id="listing-results-grid" class="products-grid">
+              <!-- Dynamically populated -->
+            </div>
+
+            <!-- Empty State for filters/search -->
+            <div id="listing-empty-state" class="empty-state-view hidden" data-info-name="empty state" data-info-category="Display & Content" data-info-desc="An illustration panel explaining that no matching results or data records could be found.">
+              <div class="empty-illustration">🔍</div>
+              <h3>No products found</h3>
+              <p>We couldn't find anything matching your filters or search keywords. Try adjusting them!</p>
+              <button id="btn-reset-filters-empty" class="primary-btn">Reset Filters</button>
+            </div>
+
+            <!-- Pagination (Desktop) -->
+            <div id="pagination-controls" class="pagination-container" data-info-name="pagination" data-info-category="Navigation" data-info-desc="A group of numbered page controls for navigating through pages of catalog listings on desktop viewports.">
+              <button class="pag-btn prev">&lt;</button>
+              <div class="page-numbers">
+                <span class="pag-num active">1</span>
+                <span class="pag-num">2</span>
+                <span class="pag-num">3</span>
+              </div>
+              <button class="pag-btn next">&gt;</button>
+            </div>
+
+            <!-- Loading Spinner / Infinite Scroll (Mobile) -->
+            <div id="infinite-scroll-indicator" class="infinite-scroll-container hidden" data-info-name="infinite scroll" data-info-category="Navigation" data-info-desc="A scrolling trigger that automatically loads successive chunks of catalog data as you scroll down on mobile.">
+              <div class="scroll-spinner" data-info-name="loading spinner" data-info-category="Overlays & Feedback" data-info-desc="A rotating animated indicator displaying background network loading progress."></div>
+              <span>Loading more items...</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 3: PRODUCT DETAIL PAGE -->
+      <section id="view-detail" class="shop-view hidden">
+        <div class="detail-navigation-bar">
+          <button id="btn-detail-back" class="text-link-btn" data-info-name="back button" data-info-category="Navigation" data-info-desc="A navigation button that redirects the user back to the previously viewed catalog page.">← Back to Results</button>
+          <div class="breadcrumbs-container" data-info-name="breadcrumbs" data-info-category="Navigation" data-info-desc="A trail of clickable page links representing hierarchical paths back to the home page view.">
+            <a href="#" class="breadcrumb-home">Home</a> ›
+            <span class="breadcrumb-segment-wrapper">
+              <button id="detail-breadcrumb-category" class="breadcrumb-segment">Category</button>
+              <div id="breadcrumb-dropdown-detail" class="breadcrumb-dropdown hidden" data-info-name="popover" data-info-category="Overlays & Feedback" data-info-desc="A small panel anchored to and pointing at the element that opened it, opened by clicking, unlike a tooltip which opens on hover.">
+                <!-- Populated dynamically with sibling categories -->
+              </div>
+            </span>
+            › <span id="detail-breadcrumb-title">Product Title</span>
+          </div>
+        </div>
+
+        <div class="product-detail-layout">
+          <!-- Gallery -->
+          <div class="detail-gallery-container" data-info-name="image gallery" data-info-category="Display & Content" data-info-desc="An image display component showing a large primary photo alongside a set of selectable thumbnail previews.">
+            <div class="main-image-viewport" id="detail-main-img" style="background: linear-gradient(135deg, #3B82F6, #1D4ED8)"></div>
+            <div class="gallery-thumbnails">
+              <div class="gallery-thumb active" style="background: linear-gradient(135deg, #3B82F6, #1D4ED8)"></div>
+              <div class="gallery-thumb" style="background: linear-gradient(135deg, #3B82F6, #2563EB)"></div>
+              <div class="gallery-thumb" style="background: linear-gradient(135deg, #1E3A8A, #172554)"></div>
+            </div>
+          </div>
+
+          <!-- Product Specifications & Buy Action Details -->
+          <div class="detail-info-container">
+            <h1 id="detail-product-title">Product Name</h1>
+            <div class="detail-ratings-row">
+              <div class="star-rating-display" data-info-name="rating stars" data-info-category="Display & Content" data-info-desc="A visual indicator of star rating icons displaying the average product feedback score.">
+                ⭐⭐⭐⭐☆ <span id="detail-rating-number">(4.2)</span>
+              </div>
+              <span id="detail-reviews-count" class="reviews-count">124 reviews</span>
+            </div>
+
+            <div class="detail-price-row">
+              <span class="currency-symbol">₹</span><span id="detail-product-price" class="price-val">1,299</span>
+              <span class="original-price">₹1,999</span>
+              <span class="discount-badge">35% OFF</span>
+            </div>
+
+            <p id="detail-product-description" class="product-short-desc">
+              Description text of the product goes here.
+            </p>
+
+            <hr class="divider" data-info-name="divider" data-info-category="Display & Content" data-info-desc="A thin decorative line that visually separates items or layout sections.">
+
+            <div class="actions-stepper-row">
+              <div class="quantity-input-container">
+                <span class="input-label">Quantity:</span>
+                <div class="stepper-input-wrapper" data-info-name="stepper input" data-info-category="Inputs & Forms" data-info-desc="A numeric increment control with minus and plus buttons for updating order item quantities.">
+                  <button class="step-btn decrease">-</button>
+                  <input type="number" id="detail-qty-input" class="qty-field" value="1" min="1" max="10" readonly>
+                  <button class="step-btn increase">+</button>
+                </div>
+              </div>
+              <button id="btn-detail-wishlist" class="wishlist-toggle-btn" data-info-name="wishlist toggle" data-info-category="Navigation" data-info-desc="A heart-shaped toggle button that adds or removes the current product from your saved wishlist.">
+                <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </button>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="detail-actions-buttons">
+              <button id="btn-detail-add-cart" class="primary-btn flex-grow" data-info-name="primary button" data-info-category="Inputs & Forms" data-info-desc="The main action button to proceed with the primary task on the page, unlike a secondary button.">Add to Cart</button>
+              
+              <!-- Split Button -->
+              <div class="split-button-container" data-info-name="split button" data-info-category="Inputs & Forms" data-info-desc="An action button split in two parts: a main click action and an attached arrow opening secondary options.">
+                <button id="btn-detail-buy-now" class="split-btn-main">Buy Now</button>
+                <button id="btn-detail-split-dropdown" class="split-btn-arrow">▾</button>
+                <div id="detail-split-menu" class="split-dropdown-menu hidden">
+                  <button class="menu-item" id="btn-buy-emi">💳 Buy with EMI</button>
+                  <button class="menu-item" id="btn-buy-cod">💵 Pay on Delivery</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Accordion Details -->
+            <div class="accordion-container" data-info-name="accordion" data-info-category="Display & Content" data-info-desc="A stacked set of collapsible panels that expand one at a time, hiding the others.">
+              <div class="accordion-item">
+                <button class="accordion-header">Product Specifications <span>+</span></button>
+                <div class="accordion-panel">
+                  <table>
+                    <tr><td>Brand</td><td id="spec-brand">Noise</td></tr>
+                    <tr><td>Category</td><td id="spec-cat">Electronics</td></tr>
+                    <tr><td>Warranty</td><td>1 Year Brand Warranty</td></tr>
+                  </table>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-header">Product Demo Video <span>+</span></button>
+                <div class="accordion-panel">
+                  <div class="video-player-wrapper" data-info-name="video player" data-info-category="Display & Content" data-info-desc="An embedded media viewport playing product animations with playback controls.">
+                    <div class="custom-video-screen">
+                      <span>▶️ Demo Video Animation</span>
+                      <button class="video-play-btn">Play</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-header">Customer Reviews <span>+</span></button>
+                <div class="accordion-panel">
+                  <!-- Reviews Subpanel -->
+                  <div id="detail-reviews-list" class="detail-reviews-list">
+                    <!-- Populated dynamically -->
+                  </div>
+                  
+                  <hr class="divider">
+                  
+                  <!-- Ratings Input -->
+                  <div class="write-review-form">
+                    <h4>Write a Review</h4>
+                    <div class="ratings-input-row" data-info-name="ratings (star) input" data-info-category="Inputs & Forms" data-info-desc="A selector of clickable star rating icons for capturing the shopper's product evaluation.">
+                      <span class="star-input" data-rating="1">☆</span>
+                      <span class="star-input" data-rating="2">☆</span>
+                      <span class="star-input" data-rating="3">☆</span>
+                      <span class="star-input" data-rating="4">☆</span>
+                      <span class="star-input" data-rating="5">☆</span>
+                    </div>
+                    <div class="form-group">
+                      <textarea id="review-comment-textarea" rows="3" placeholder="Describe your experience with this product..." data-info-name="text area" data-info-category="Inputs & Forms" data-info-desc="A multi-line text input block enabling extensive user feedback, unlike a text field."></textarea>
+                    </div>
+                    <button id="btn-submit-review" class="primary-btn" data-info-name="primary button" data-info-category="Inputs & Forms" data-info-desc="The main action button to proceed with the primary task on the page, unlike a secondary button.">Submit Review</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recently Viewed Rail -->
+        <div class="recently-viewed-rail hidden" data-info-name="recently viewed rail" data-info-category="Display & Content" data-info-desc="A horizontally scrolling row of products you looked at recently, unlike the curated Trending/Deals rows above.">
+          <h2 class="section-heading">Recently Viewed</h2>
+          <div class="recently-viewed-scroll" id="detail-recently-viewed-grid">
+            <!-- Populated dynamically from state.recentlyViewed -->
+          </div>
+        </div>
+
+        <!-- Sticky Bar (Mobile Only) -->
+        <div class="sticky-bottom-bar mobile-only" data-info-name="sticky bar" data-info-category="Display & Content" data-info-desc="A responsive bar pinned to the viewport bottom holding pricing and quick buy buttons on mobile.">
+          <div class="sticky-price">₹<span id="detail-sticky-price">1,299</span></div>
+          <button id="btn-sticky-add-cart" class="primary-btn">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- VIEW 4: MY ORDERS VIEW -->
+      <section id="view-orders" class="shop-view hidden">
+        <div class="section-title-row">
+          <h2>My Orders</h2>
+        </div>
+
+        <div class="tabs-container" data-info-name="tabs" data-info-category="Navigation" data-info-desc="A row of navigation menu buttons displaying different sections of content, with the active tab highlighted.">
+          <button class="tab-btn active" data-tab="all">All Orders</button>
+          <button class="tab-btn" data-tab="active">Active</button>
+          <button class="tab-btn" data-tab="delivered">Delivered</button>
+        </div>
+
+        <div id="orders-list-view" class="orders-list-container" data-info-name="list view" data-info-category="Display & Content" data-info-desc="A vertical list layout display stacking elements or records in standard rows.">
+          <!-- Dynamically populated order rows -->
+        </div>
+
+        <!-- Empty state orders -->
+        <div id="orders-empty-state" class="empty-state-view hidden">
+          <div class="empty-illustration">📦</div>
+          <h3>No orders yet</h3>
+          <p>Looks like you haven't bought anything. Start shopping now!</p>
+          <button class="primary-btn btn-go-shopping">Start Shopping</button>
+        </div>
+      </section>
+
+      <!-- VIEW 5: WISHLIST VIEW -->
+      <section id="view-wishlist" class="shop-view hidden">
+        <div class="section-title-row">
+          <h2>My Wishlist</h2>
+        </div>
+
+        <div id="wishlist-results-grid" class="products-grid">
+          <!-- Dynamically populated -->
+        </div>
+
+        <!-- Empty state wishlist -->
+        <div id="wishlist-empty-state" class="empty-state-view hidden">
+          <div class="empty-illustration">❤️</div>
+          <h3>Your wishlist is empty</h3>
+          <p>Explore the store catalog and tap the heart icon on any product to save it here.</p>
+          <button class="primary-btn btn-go-shopping">Explore Catalog</button>
+        </div>
+      </section>
+
+      <!-- VIEW 6: ACCOUNT & SETTINGS VIEW -->
+      <section id="view-settings" class="shop-view hidden">
+        <div class="section-title-row">
+          <h2>Account & Settings</h2>
+        </div>
+
+        <div class="settings-layout">
+          <div class="tabs-container" data-info-name="tabs" data-info-category="Navigation" data-info-desc="A row of navigation menu buttons displaying different sections of content, with the active tab highlighted.">
+            <button class="tab-btn active" data-settings-tab="profile">Profile</button>
+            <button class="tab-btn" data-settings-tab="addresses">Addresses</button>
+            <button class="tab-btn" data-settings-tab="notifications">Notifications</button>
+            <button class="tab-btn" data-settings-tab="preferences">Preferences</button>
+          </div>
+
+          <div class="settings-content-panel">
+            <!-- Profile Tab Form -->
+            <div id="settings-tab-profile" class="settings-subview">
+              <div class="settings-avatar-upload">
+                <div class="avatar-drag-drop" data-info-name="avatar" data-info-category="Display & Content" data-info-desc="A small profile image or initials badge representing the logged-in user.">
+                  <span id="settings-avatar-initials">U</span>
+                </div>
+                <div class="upload-controls">
+                  <input type="file" id="settings-photo-upload" class="hidden">
+                  <label for="settings-photo-upload" class="secondary-btn" data-info-name="secondary button" data-info-category="Inputs & Forms" data-info-desc="An auxiliary action button completing support actions, unlike a primary button.">Change photo</label>
+                  <p class="helper-text">Drag and drop or click to browse (PNG, JPG max 2MB)</p>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="profile-name-input">Full Name</label>
+                  <input type="text" id="profile-name-input" class="text-field" value="User User" data-info-name="text fields" data-info-category="Inputs & Forms" data-info-desc="A single-line text input box for capturing user names or other text inputs, unlike a text area.">
+                </div>
+                <div class="form-group">
+                  <label for="profile-phone-input">Phone Number</label>
+                  <input type="text" id="profile-phone-input" class="text-field" value="+91 9876543210" data-info-name="text fields" data-info-category="Inputs & Forms" data-info-desc="A single-line text input box for capturing user names or other text inputs, unlike a text area.">
+                </div>
+                <div class="form-group">
+                  <label for="profile-pincode-input">Default Pincode</label>
+                  <input type="text" id="profile-pincode-input" class="text-field" value="400001" data-info-name="text fields" data-info-category="Inputs & Forms" data-info-desc="A single-line text input box for capturing user names or other text inputs, unlike a text area.">
+                </div>
+              </div>
+            </div>
+
+            <!-- Addresses Tab -->
+            <div id="settings-tab-addresses" class="settings-subview hidden">
+              <h4>Saved Addresses</h4>
+              <div class="address-card-list">
+                <div class="address-card" data-info-name="cards" data-info-category="Display & Content" data-info-desc="A product visualization card displaying pricing, image, ratings, and actions.">
+                  <h5>🏠 Home</h5>
+                  <p>Flat 302, Orchid Heights, MG Road, Bengaluru, Karnataka - 560001</p>
+                  <small>Phone: +91 9876543210</small>
+                  <div class="address-actions">
+                    <button class="text-link-btn">Edit</button>
+                    <button class="text-link-btn text-danger">Delete</button>
+                  </div>
+                </div>
+                <div class="address-card">
+                  <h5>🏢 Office</h5>
+                  <p>Unit 5, Tech Park Plaza, Whitefield, Bengaluru, Karnataka - 560066</p>
+                  <small>Phone: +91 9876543211</small>
+                  <div class="address-actions">
+                    <button class="text-link-btn">Edit</button>
+                    <button class="text-link-btn text-danger">Delete</button>
+                  </div>
+                </div>
+              </div>
+              <button class="secondary-btn" style="margin-top:1rem" data-info-name="secondary button" data-info-category="Inputs & Forms" data-info-desc="An auxiliary action button completing support actions, unlike a primary button.">+ Add New Address</button>
+            </div>
+
+            <!-- Notifications Tab -->
+            <div id="settings-tab-notifications" class="settings-subview hidden">
+              <h4>Notification Preferences</h4>
+              <div class="checkbox-notification-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" checked data-info-name="checkboxes" data-info-category="Inputs & Forms" data-info-desc="A checklist of items where several options can be checked at once, unlike a multi-select dropdown.">
+                  <span>Order status updates (Placed, Shipped, Delivered)</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" checked data-info-name="checkboxes" data-info-category="Inputs & Forms" data-info-desc="A checklist of items where several options can be checked at once, unlike a multi-select dropdown.">
+                  <span>Promotional offers & flash sale alerts</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" checked data-info-name="checkboxes" data-info-category="Inputs & Forms" data-info-desc="A checklist of items where several options can be checked at once, unlike a multi-select dropdown.">
+                  <span>Price drops on wishlist items</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" data-info-name="checkboxes" data-info-category="Inputs & Forms" data-info-desc="A checklist of items where several options can be checked at once, unlike a multi-select dropdown.">
+                  <span>Weekly newsletter digest</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" data-info-name="checkboxes" data-info-category="Inputs & Forms" data-info-desc="A checklist of items where several options can be checked at once, unlike a multi-select dropdown.">
+                  <span>Seller announcements & policy updates</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Preferences Tab Form -->
+            <div id="settings-tab-preferences" class="settings-subview hidden">
+              <div class="settings-toggles">
+                <div class="toggle-control-item">
+                  <div class="toggle-text">
+                    <strong>Dark Theme Interface</strong>
+                    <p>Force dark layout tokens across the storefront sides.</p>
+                  </div>
+                  <label class="toggle-switch-wrapper" data-info-name="toggle switch" data-info-category="Inputs & Forms" data-info-desc="A sliding on/off control for a single setting, unlike a checkbox which selects multiple items in a list.">
+                    <input type="checkbox" id="settings-dark-mode" checked>
+                    <span class="toggle-switch-slider"></span>
+                  </label>
+                </div>
+
+                <div class="toggle-control-item">
+                  <div class="toggle-text">
+                    <strong>Email Promotions</strong>
+                    <p>Receive newsletters about discount offers and coupons.</p>
+                  </div>
+                  <label class="toggle-switch-wrapper" data-info-name="toggle switch" data-info-category="Inputs & Forms" data-info-desc="A sliding on/off control for a single setting, unlike a checkbox which selects multiple items in a list.">
+                    <input type="checkbox" id="settings-email-promo">
+                    <span class="toggle-switch-slider"></span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="checkbox-notification-group">
+                <h4>Notification Types</h4>
+                <label class="checkbox-label">
+                  <input type="checkbox" checked data-info-name="checkboxes" data-info-category="Inputs & Forms" data-info-desc="A checklist of items where several options can be checked at once, unlike a multi-select dropdown.">
+                  <span>Order Status Updates</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" checked data-info-name="checkboxes" data-info-category="Inputs & Forms" data-info-desc="A checklist of items where several options can be checked at once, unlike a multi-select dropdown.">
+                  <span>Price Drops on Wishlist Items</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" data-info-name="checkboxes" data-info-category="Inputs & Forms" data-info-desc="A checklist of items where several options can be checked at once, unlike a multi-select dropdown.">
+                  <span>Weekly Newsletters</span>
+                </label>
+              </div>
+
+              <div class="form-grid pt-4">
+                <div class="form-group">
+                  <label>Default Language</label>
+                  <div class="radio-group row-layout">
+                    <label class="radio-label">
+                      <input type="radio" name="default-lang" value="en" checked data-info-name="radio buttons" data-info-category="Inputs & Forms" data-info-desc="A group of circle controls where exactly one choice must be chosen, unlike a select dropdown.">
+                      <span>English</span>
+                    </label>
+                    <label class="radio-label">
+                      <input type="radio" name="default-lang" value="hi" data-info-name="radio buttons" data-info-category="Inputs & Forms" data-info-desc="A group of circle controls where exactly one choice must be chosen, unlike a select dropdown.">
+                      <span>Hindi (हिंदी)</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="settings-currency">Display Currency</label>
+                  <select id="settings-currency" class="select-dropdown" data-info-name="select dropdown" data-info-category="Inputs & Forms" data-info-desc="A form selector that hides choices until clicked, unlike radio buttons which show all options.">
+                    <option value="INR">₹ (INR)</option>
+                    <option value="USD">$ (USD)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Save Row -->
+            <div class="settings-save-row">
+              <button id="btn-save-settings" class="primary-btn" data-info-name="save" data-info-category="Inputs & Forms" data-info-desc="A primary submit button that persists settings changes and updates profiles.">Save Settings</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 7: FAQ / HELP CENTER -->
+      <section id="view-faq" class="shop-view hidden">
+        <div class="section-title-row">
+          <h2>Help Center — Frequently Asked Questions</h2>
+        </div>
+        <div class="accordion-container" id="faq-accordion" data-info-name="accordion" data-info-category="Display & Content" data-info-desc="A stacked set of collapsible panels that expand one at a time, hiding the others.">
+          <!-- Populated dynamically from FAQ_ITEMS -->
+        </div>
+      </section>
+
+      <!-- VIEW 8: ACTIVITY / NOTIFICATION HISTORY -->
+      <section id="view-activity" class="shop-view hidden">
+        <div class="section-title-row">
+          <h2>Activity</h2>
+        </div>
+        <div class="chips-container" id="activity-filter-chips" data-info-name="chips / tags" data-info-category="Navigation" data-info-desc="Horizontal tag pills indicating selectable attributes that apply quick filters to the listing view.">
+          <span class="chip-tag active" data-activity-filter="all">All</span>
+          <span class="chip-tag" data-activity-filter="order">Orders</span>
+          <span class="chip-tag" data-activity-filter="delivery">Delivery</span>
+          <span class="chip-tag" data-activity-filter="promo">Promotions</span>
+          <span class="chip-tag" data-activity-filter="coupon">Coupons</span>
+          <span class="chip-tag" data-activity-filter="system">System</span>
+        </div>
+        <div id="activity-list" class="orders-list-container" data-info-name="list view" data-info-category="Display & Content" data-info-desc="A vertical list layout display stacking elements or records in standard rows.">
+          <!-- Dynamically populated from state.notifications -->
+        </div>
+        <div id="activity-empty-state" class="empty-state-view hidden" data-info-name="empty state" data-info-category="Display & Content" data-info-desc="An illustration panel explaining that no matching results or data records could be found.">
+          <div class="empty-illustration">🔔</div>
+          <h3>Nothing here yet</h3>
+          <p>No activity matches this filter.</p>
+        </div>
+      </section>
+
+      <!-- VIEW 9: 404 / NOT FOUND -->
+      <section id="view-404" class="shop-view hidden">
+        <div class="empty-state-view" data-info-name="empty state" data-info-category="Display & Content" data-info-desc="An illustration panel explaining that no matching results or data records could be found.">
+          <div class="empty-illustration error-code">404</div>
+          <h3 id="error-404-title">Page not found</h3>
+          <p id="error-404-message">The item you're looking for may have been removed or the link is outdated.</p>
+          <button id="btn-error-404-home" class="primary-btn">Back to Home</button>
+        </div>
+      </section>
+
+      <!-- VIEW 10: PRODUCT COMPARISON -->
+      <section id="view-compare" class="shop-view hidden">
+        <div class="section-title-row">
+          <h2>Compare Products</h2>
+        </div>
+        <div class="compare-table-wrapper">
+          <table id="compare-table" class="compare-table" data-info-name="data table" data-info-category="Display & Content" data-info-desc="A structured table displaying data columns and rows, used here for a side-by-side product comparison.">
+            <!-- Populated dynamically -->
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- STOREFRONT FOOTER -->
+    <footer class="site-footer" data-info-name="footer" data-info-category="Display & Content" data-info-desc="A persistent bottom section with navigation links, legal pages, and social media icons.">
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="#" class="footer-link" data-info-name="link" data-info-category="Navigation" data-info-desc="A clickable hyperlink navigation item that routes the user to a different view or document.">About Us</a>
+          <span class="footer-divider" data-info-name="divider" data-info-category="Display & Content" data-info-desc="A thin decorative line that visually separates items or layout sections.">|</span>
+          <a href="#" class="footer-link">Contact</a>
+          <span class="footer-divider">|</span>
+          <a href="#" class="footer-link">Terms & Conditions</a>
+          <span class="footer-divider">|</span>
+          <a href="#" class="footer-link" id="footer-help-link">Help Center</a>
+        </div>
+        <div class="footer-social" data-info-name="icon" data-info-category="Display & Content" data-info-desc="A small symbolic glyph representing an action or concept, used for navigation and status display.">
+          <a href="#" class="social-icon" data-tooltip="Twitter / X">𝕏</a>
+          <a href="#" class="social-icon" data-tooltip="Facebook">f</a>
+          <a href="#" class="social-icon" data-tooltip="Instagram">📷</a>
+          <a href="#" class="social-icon" data-tooltip="YouTube">▶</a>
+        </div>
+        <p class="footer-copy">© 2026 ComponentKart. All rights reserved. Made in India 🇮🇳</p>
+      </div>
+    </footer>
+
+    <!-- FLOATING ACTION BUTTON (FAB) -->
+    <button id="btn-fab" class="fab-btn mobile-only" data-info-name="floating action button (FAB)" data-info-category="Navigation" data-info-desc="A round, elevated floating primary button triggering quick support chats on mobile viewport configurations.">
+      💬
+    </button>
+
+    <!-- BACK TO TOP BUTTON -->
+    <button id="back-to-top-btn" class="back-to-top-btn" data-info-name="back to top button" data-info-category="Navigation" data-info-desc="A floating button that appears after scrolling down and smoothly scrolls the page back to the top when clicked.">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+    </button>
+
+    <!-- MOBILE BOTTOM NAVIGATION -->
+    <nav class="bottom-nav mobile-only" data-info-name="bottom navigation" data-info-category="Navigation" data-info-desc="A fixed bottom bar holding standard icons (Home, Search, Cart, Account) on narrow mobile device viewports.">
+      <button class="nav-item active" data-view="home">
+        <span>🏠</span><small>Home</small>
+      </button>
+      <button class="nav-item" data-view="listing">
+        <span>🔍</span><small>Browse</small>
+      </button>
+      <button class="nav-item" id="btn-mobile-cart">
+        <span>🛒</span><small>Cart</small>
+      </button>
+      <button class="nav-item" data-view="settings">
+        <span>👤</span><small>Profile</small>
+      </button>
+    </nav>
+
+    <!-- CART SIDE DRAWER / BOTTOM SHEET -->
+    <div id="cart-drawer-backdrop" class="drawer-backdrop hidden"></div>
+    <div id="cart-drawer" class="cart-drawer hidden" data-info-name="drawer" data-info-category="Display & Content" data-info-desc="A side sliding panel containing checkout summaries, turning into a bottom sheet on mobile viewports.">
+      <div class="drawer-header">
+        <h3>Shopping Cart</h3>
+        <button id="btn-close-cart" class="icon-btn" data-info-name="close button" data-info-category="Inputs & Forms" data-info-desc="A small icon button that dismisses the overlay or panel it's attached to.">
+          <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </div>
+
+      <!-- Free Shipping Progress Bar -->
+      <div id="free-shipping-bar" class="free-shipping-banner" data-info-name="progress bar" data-info-category="Overlays & Feedback" data-info-desc="A progress indicator showing how close the cart total is to unlocking free express shipping.">
+        <div class="shipping-msg" id="shipping-msg-text">Add ₹499 more to get <strong>FREE Express Delivery</strong>!</div>
+        <div class="shipping-progress-track">
+          <div class="shipping-progress-fill" id="shipping-progress-fill" style="width: 50%"></div>
+        </div>
+      </div>
+
+      <div class="drawer-content cart-content">
+        <!-- Cart Items List -->
+        <div id="cart-items-list" class="orders-list-container" data-info-name="list view" data-info-category="Display & Content" data-info-desc="A vertical list layout display stacking elements or records in standard rows.">
+          <!-- Dynamically populated -->
+        </div>
+
+        <!-- Empty cart message -->
+        <div id="cart-empty-msg" class="empty-state-view hidden" data-info-name="empty state" data-info-category="Display & Content" data-info-desc="An illustration panel explaining that no matching results or data records could be found.">
+          <span>🛒</span>
+          <h3>Your cart is empty</h3>
+          <p>Add some awesome Indian items from our store!</p>
+          <button class="primary-btn btn-go-shopping">Explore Now</button>
+        </div>
+      </div>
+
+      <div class="drawer-footer" id="cart-summary-block">
+        <!-- Coupon Form -->
+        <div class="coupon-field-wrapper" data-info-name="coupon field" data-info-category="Inputs & Forms" data-info-desc="A coupon entry field with an apply trigger, displaying validation feedback results inline.">
+          <input type="text" id="coupon-input" class="text-field" placeholder="Enter coupon (e.g., SAVE20)">
+          <button id="btn-apply-coupon" class="secondary-btn">Apply</button>
+        </div>
+        <div id="coupon-feedback" class="coupon-feedback hidden"></div>
+
+        <div class="price-summary-row">
+          <span>Subtotal</span>
+          <span>₹<span id="cart-subtotal">0</span></span>
+        </div>
+        <div class="price-summary-row text-success hidden" id="discount-summary-row">
+          <span>Discount (Coupon)</span>
+          <span>-₹<span id="cart-discount">0</span></span>
+        </div>
+        <div class="price-summary-row font-bold">
+          <span>Total</span>
+          <span>₹<span id="cart-total">0</span></span>
+        </div>
+        <button id="btn-proceed-checkout" class="primary-btn w-full" data-info-name="primary button" data-info-category="Inputs & Forms" data-info-desc="The main action button to proceed with the primary task on the page, unlike a secondary button.">Proceed to Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MANAGE SIDE (SELLER DASHBOARD) ================= -->
+  <div id="manage-side" class="side-container hidden">
+    <div class="dashboard-layout">
+      
+      <!-- Alert / Banner Warning -->
+      <div id="gst-warning-banner" class="alert-banner" data-info-name="alert / banner" data-info-category="Overlays & Feedback" data-info-desc="A full-width colored strip warning bar pinned to page headers containing critical status statements.">
+        <span>⚠️ Your GST verification is pending - complete it in settings to receive dashboard payouts.</span>
+        <button id="btn-dismiss-gst" class="close-banner-btn" data-info-name="close button" data-info-category="Inputs & Forms" data-info-desc="A small icon button that dismisses the overlay or panel it's attached to.">&times;</button>
+      </div>
+
+      <div class="dashboard-shell-container">
+        <!-- Sidebar Navigation -->
+        <aside class="dashboard-sidebar" id="dashboard-sidebar" data-info-name="sidebar" data-info-category="Display & Content" data-info-desc="A static vertical navigation strip anchoring sidebar widgets and category bookmarks.">
+          <div class="sidebar-header">
+            <div class="seller-avatar" data-info-name="avatar" data-info-category="Display & Content" data-info-desc="A small profile image or initials badge representing the logged-in user.">KR</div>
+            <div class="seller-details">
+              <h4>Kartavya Retail</h4>
+              <small>Seller Hub</small>
+            </div>
+          </div>
+          <nav class="sidebar-links-list">
+            <button class="sidebar-link active" data-dash-tab="overview">
+              <span>Overview</span>
+            </button>
+            <button class="sidebar-link" data-dash-tab="products">
+              <span>Products</span>
+            </button>
+            <button class="sidebar-link" data-dash-tab="orders">
+              <span>Orders</span>
+              <span id="orders-badge-count" class="badge">3</span>
+            </button>
+            <button class="sidebar-link" data-dash-tab="categories">
+              <span>Categories</span>
+            </button>
+            <button class="sidebar-link" data-dash-tab="settings">
+              <span>Settings</span>
+            </button>
+          </nav>
+        </aside>
+
+        <!-- Main Dashboard View Panel -->
+        <main class="dashboard-main-view">
+          
+          <!-- Skeleton Loader Panel -->
+          <div id="dashboard-skeleton" class="skeleton-container" data-info-name="skeleton loader" data-info-category="Overlays & Feedback" data-info-desc="A mockup outline display rendering grey placeholder shapes prior to actual API data initialization.">
+            <div class="skeleton-header"></div>
+            <div class="skeleton-grid">
+              <div class="skeleton-card"></div>
+              <div class="skeleton-card"></div>
+              <div class="skeleton-card"></div>
+            </div>
+            <div class="skeleton-chart"></div>
+          </div>
+
+          <!-- Real Content Container -->
+          <div id="dashboard-real-content" class="dashboard-tabs-container">
+            <!-- Header Info -->
+            <div class="dashboard-header-block">
+              <div class="header-titles">
+                <h2 id="dashboard-tab-title">Seller Hub Overview</h2>
+                <p>Track store metrics, manage products, and ship incoming orders.</p>
+              </div>
+            </div>
+
+            <!-- TAB 1: OVERVIEW -->
+            <div id="dash-tab-overview" class="dashboard-tab-panel">
+              <!-- Stat Cards Grid -->
+              <div class="metrics-grid">
+                <!-- Card 1 -->
+                <div class="metric-card-box" data-metric="sales" data-info-name="metric / stat cards" data-info-category="Display & Content" data-info-desc="A tile displaying visual dashboard data like sales figures and site counters.">
+                  <div class="card-meta">
+                    <span>💰 Total Sales</span>
+                    <button class="info-popover-trigger" data-popover-id="popover-sales">ⓘ</button>
+                  </div>
+                  <h3>₹4,56,780</h3>
+                  <small class="text-success">↑ 12.4% vs last week</small>
+                </div>
+                <!-- Card 2 -->
+                <div class="metric-card-box" data-metric="orders" data-info-name="metric / stat cards" data-info-category="Display & Content" data-info-desc="A tile displaying visual dashboard data like sales figures and site counters.">
+                  <div class="card-meta">
+                    <span>📦 Active Orders</span>
+                    <button class="info-popover-trigger" data-popover-id="popover-orders">ⓘ</button>
+                  </div>
+                  <h3>148</h3>
+                  <small class="text-success">↑ 8.2% vs last week</small>
+                </div>
+                <!-- Card 3 -->
+                <div class="metric-card-box" data-metric="visitors" data-info-name="metric / stat cards" data-info-category="Display & Content" data-info-desc="A tile displaying visual dashboard data like sales figures and site counters.">
+                  <div class="card-meta">
+                    <span>👥 Store Visitors</span>
+                    <button class="info-popover-trigger" data-popover-id="popover-visitors">ⓘ</button>
+                  </div>
+                  <h3>34</h3>
+                  <small class="text-success">↑ 18.5% live visitors</small>
+                </div>
+              </div>
+
+              <!-- Metric Card Popovers -->
+              <div id="popover-sales" class="metric-popover hidden" data-info-name="popover" data-info-category="Overlays & Feedback" data-info-desc="A small panel anchored to and pointing at the element that opened it, opened by clicking, unlike a tooltip which opens on hover.">
+                <h4>Sales Calculation</h4>
+                <p>Calculated as total revenue from delivered and processing orders in the current calendar week.</p>
+              </div>
+              <div id="popover-orders" class="metric-popover hidden" data-info-name="popover" data-info-category="Overlays & Feedback" data-info-desc="A small panel anchored to and pointing at the element that opened it, opened by clicking, unlike a tooltip which opens on hover.">
+                <h4>Orders Tracking</h4>
+                <p>Total count of orders received in the system during the past 7 billing days.</p>
+              </div>
+              <div id="popover-visitors" class="metric-popover hidden" data-info-name="popover" data-info-category="Overlays & Feedback" data-info-desc="A small panel anchored to and pointing at the element that opened it, opened by clicking, unlike a tooltip which opens on hover.">
+                <h4>Live Visitors</h4>
+                <p>Estimated number of unique shoppers browsing the shop storefront in the last 15 minutes.</p>
+              </div>
+
+              <div class="chart-storage-row">
+                <!-- Sales chart -->
+                <div class="chart-section-card">
+                  <h4>Sales Trend (Last 7 Days)</h4>
+                  <div class="chart-wrapper" data-info-name="chart / graph" data-info-category="Display & Content" data-info-desc="A graphic rendering statistical data curves or sales bars across time.">
+                    <!-- SVG Chart -->
+                    <svg viewBox="0 0 500 200" class="dashboard-svg-chart">
+                      <!-- Grid lines -->
+                      <line x1="50" y1="20" x2="480" y2="20" stroke="#334155" stroke-dasharray="4"/>
+                      <line x1="50" y1="70" x2="480" y2="70" stroke="#334155" stroke-dasharray="4"/>
+                      <line x1="50" y1="120" x2="480" y2="120" stroke="#334155" stroke-dasharray="4"/>
+                      <line x1="50" y1="170" x2="480" y2="170" stroke="#475569" />
+
+                      <!-- Chart Path -->
+                      <path d="M 50 170 L 120 150 L 190 120 L 260 140 L 330 110 L 400 80 L 470 50" fill="none" stroke="#6366f1" stroke-width="3" />
+                      <!-- Points -->
+                      <circle cx="50" cy="170" r="5" fill="#a5b4fc" />
+                      <circle cx="120" cy="150" r="5" fill="#a5b4fc" />
+                      <circle cx="190" cy="120" r="5" fill="#a5b4fc" />
+                      <circle cx="260" cy="140" r="5" fill="#a5b4fc" />
+                      <circle cx="330" cy="110" r="5" fill="#a5b4fc" />
+                      <circle cx="400" cy="80" r="5" fill="#a5b4fc" />
+                      <circle cx="470" cy="50" r="5" fill="#a5b4fc" />
+                      
+                      <!-- Labels -->
+                      <text x="50" y="190" fill="#94a3b8" font-size="10" text-anchor="middle">24 Jul</text>
+                      <text x="120" y="190" fill="#94a3b8" font-size="10" text-anchor="middle">25 Jul</text>
+                      <text x="190" y="190" fill="#94a3b8" font-size="10" text-anchor="middle">26 Jul</text>
+                      <text x="260" y="190" fill="#94a3b8" font-size="10" text-anchor="middle">27 Jul</text>
+                      <text x="330" y="190" fill="#94a3b8" font-size="10" text-anchor="middle">28 Jul</text>
+                      <text x="400" y="190" fill="#94a3b8" font-size="10" text-anchor="middle">29 Jul</text>
+                      <text x="470" y="190" fill="#94a3b8" font-size="10" text-anchor="middle">30 Jul</text>
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- Storage progress -->
+                <div class="progress-section-card">
+                  <h4>Hosting Resources</h4>
+                  <p>Product media upload storage limit indicators.</p>
+                  <div class="progress-bar-container" data-info-name="progress bar" data-info-category="Display & Content" data-info-desc="An animated indicator bar displaying loading, storage, or task completion percentage.">
+                    <div class="progress-bar-fill" style="width: 60%"></div>
+                  </div>
+                  <small>Storage Used: 60% (600MB of 1GB)</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- TAB 2: PRODUCTS TABLE -->
+            <div id="dash-tab-products" class="dashboard-tab-panel hidden">
+              <div class="table-toolbar">
+                <div class="toolbar-left">
+                  <!-- Button Group -->
+                  <div class="button-group-container" data-info-name="button group" data-info-category="Navigation" data-info-desc="A container of grouped action buttons that run separate tasks, unlike a segmented control.">
+                    <button class="grp-btn" id="btn-export-products">📤 Export CSV</button>
+                    <button class="grp-btn" id="btn-print-products">🖨️ Print List</button>
+                    <button class="grp-btn" id="btn-share-products">🔗 Share Catalog</button>
+                  </div>
+                </div>
+                <div class="toolbar-right">
+                  <button id="btn-add-product-modal" class="primary-btn" data-info-name="primary button" data-info-category="Inputs & Forms" data-info-desc="The main action button to proceed with the primary task on the page, unlike a secondary button.">＋ Add Product</button>
+                </div>
+              </div>
+
+              <!-- Product Table -->
+              <div class="table-container" data-info-name="container / panel" data-info-category="Display & Content" data-info-desc="A structural container panel that groups related sections of the user interface.">
+                <table class="data-table" data-info-name="data table" data-info-category="Display & Content" data-info-desc="A structured table displaying data columns and rows with sorting features.">
+                  <thead>
+                    <tr>
+                      <th class="sortable" data-sort-key="name">Product Name ↕</th>
+                      <th class="sortable" data-sort-key="price">Price ↕</th>
+                      <th class="sortable" data-sort-key="stock">Stock ↕</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dash-products-table-body">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Table Pagination -->
+              <div class="pagination-container table-pagination">
+                <button class="pag-btn" id="btn-table-prev">&lt;</button>
+                <span id="table-page-indicator">Page 1 of 5</span>
+                <button class="pag-btn" id="btn-table-next">&gt;</button>
+              </div>
+            </div>
+
+            <!-- TAB 3: ORDERS HUB -->
+            <div id="dash-tab-orders" class="dashboard-tab-panel hidden">
+              <div class="orders-toolbar-chips">
+                <div class="chips-container" data-info-name="chips / tags" data-info-category="Navigation" data-info-desc="Horizontal tag pills indicating selectable attributes that apply quick filters to the listing view.">
+                  <span class="chip-tag active" data-order-filter="All">All Orders</span>
+                  <span class="chip-tag" data-order-filter="Placed">Placed</span>
+                  <span class="chip-tag" data-order-filter="Packed">Packed</span>
+                  <span class="chip-tag" data-order-filter="Shipped">Shipped</span>
+                  <span class="chip-tag" data-order-filter="Delivered">Delivered</span>
+                </div>
+                
+                <!-- Date Picker -->
+                <div class="date-range-picker-container" data-info-name="date picker" data-info-category="Inputs & Forms" data-info-desc="A calendar input form for picking dates or defining active date range boundaries.">
+                  <input type="date" id="order-start-date" class="date-input">
+                  <span>to</span>
+                  <input type="date" id="order-end-date" class="date-input">
+                </div>
+              </div>
+
+              <div class="table-container">
+                <table class="data-table" data-info-name="data table" data-info-category="Display & Content" data-info-desc="A structured table displaying data columns and rows with sorting features.">
+                  <thead>
+                    <tr>
+                      <th>Order ID</th>
+                      <th>Customer</th>
+                      <th>Date</th>
+                      <th>Items</th>
+                      <th>Total (₹)</th>
+                      <th>Status Badge</th>
+                      <th>Update Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dash-orders-table-body">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- TAB 4: CATEGORY MANAGER -->
+            <div id="dash-tab-categories" class="dashboard-tab-panel hidden">
+              <div class="categories-header-toolbar">
+                <h4>Category Hierarchy Tree</h4>
+                <button id="btn-add-category-modal" class="secondary-btn" data-info-name="secondary button" data-info-category="Inputs & Forms" data-info-desc="An auxiliary action button completing support actions, unlike a primary button.">＋ Add Category</button>
+              </div>
+
+              <div class="tree-view-wrapper" data-info-name="tree view" data-info-category="Navigation" data-info-desc="An expandable hierarchical folder layout showing parent-child node relationships.">
+                <ul class="tree-root" id="category-tree-root">
+                  <!-- Dynamically populated from CATEGORY_TREE -->
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= OVERLAYS, DIALOGS, MODALS ================= -->
+
+  <!-- WHAT'S NEW POPUP WINDOW -->
+  <div id="popup-whats-new" class="whats-new-popup hidden" data-info-name="popup window" data-info-category="Overlays & Feedback" data-info-desc="A small announcement card floating over content on dashboard load, unlike a modal dialog.">
+    <div class="popup-header">
+      <h4>⚡ What's New in v2.4</h4>
+      <button id="btn-close-popup" class="close-popup-btn" data-info-name="close button" data-info-category="Inputs & Forms" data-info-desc="A small icon button that dismisses the overlay or panel it's attached to.">&times;</button>
+    </div>
+    <div class="popup-body">
+      <p>GST verification notifications have been added. Also check the responsive category tree manager!</p>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION STACK CONTAINER -->
+  <div id="toast-stack-container" class="toast-stack"></div>
+
+  <!-- NETWORK ERROR BANNER (simulated, no real network calls exist in this static app) -->
+  <div id="network-error-banner" class="alert-banner network-error-banner hidden" data-info-name="alert / banner" data-info-category="Overlays & Feedback" data-info-desc="A full-width colored strip warning bar pinned to page headers containing critical status statements.">
+    <span id="network-error-message">Having trouble reaching the server...</span>
+    <button id="btn-dismiss-network-error" class="close-banner-btn" data-info-name="close button" data-info-category="Inputs & Forms" data-info-desc="A small icon button that dismisses the overlay or panel it's attached to.">&times;</button>
+  </div>
+
+  <!-- PRODUCT COMPARISON FLOATING BAR -->
+  <div id="compare-bar" class="compare-bar hidden" data-info-name="comparison bar" data-info-category="Navigation" data-info-desc="A floating bar that appears once you've selected products to compare, showing how many are selected and a button to view the comparison.">
+    <span><span id="compare-bar-count">0</span> selected for comparison</span>
+    <div class="compare-bar-actions">
+      <button id="btn-compare-clear" class="secondary-btn">Clear</button>
+      <button id="btn-compare-view" class="primary-btn" disabled>Compare</button>
+    </div>
+  </div>
+
+  <!-- COOKIE CONSENT BANNER -->
+  <div id="cookie-consent-banner" class="cookie-banner hidden" data-info-name="alert / banner" data-info-category="Overlays & Feedback" data-info-desc="A full-width colored strip warning bar pinned to page headers containing critical status statements, used here at the bottom for cookie consent.">
+    <div class="cookie-banner-main">
+      <span id="cookie-banner-message"></span>
+      <div class="cookie-banner-actions">
+        <button id="btn-cookie-preferences" class="secondary-btn"></button>
+        <button id="btn-cookie-accept" class="primary-btn"></button>
+      </div>
+    </div>
+    <div id="cookie-preferences-panel" class="cookie-preferences-panel hidden">
+      <!-- Populated dynamically from COOKIE_BANNER_CONTENT.categories -->
+    </div>
+  </div>
+
+  <!-- MODAL 1: SIGN IN / LOGIN -->
+  <div id="signin-modal" class="modal-overlay hidden">
+    <div class="modal-dialog-box" data-info-name="dialog box (modal)" data-info-category="Overlays & Feedback" data-info-desc="A centered dialog window overlaying and blocking interaction with page content, unlike a popup window.">
+      <div class="modal-header">
+        <h3>Sign In to ComponentKart</h3>
+        <button id="btn-close-signin" class="close-modal-btn" data-info-name="close button" data-info-category="Inputs & Forms" data-info-desc="A small icon button that dismisses the overlay or panel it's attached to.">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="login-form" class="auth-form" data-info-name="login / signup form" data-info-category="Inputs & Forms" data-info-desc="A structured sign-in or registration submission card holding profile credentials.">
+          <div class="form-group">
+            <label for="signin-phone">Phone Number</label>
+            <input type="text" id="signin-phone" class="text-field" placeholder="Enter 10-digit mobile number">
+          </div>
+          <div class="form-group">
+            <label for="signin-password">Password</label>
+            <div class="password-field-wrapper" data-info-name="password field" data-info-category="Inputs & Forms" data-info-desc="A secure masked text input box for typing account passwords with a visibility eye icon.">
+              <input type="password" id="signin-password" class="text-field" placeholder="Enter password">
+              <button type="button" id="btn-toggle-password-vis" class="eye-btn">👁️</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>OTP Verification</label>
+            <div class="otp-input-wrapper" data-info-name="OTP input" data-info-category="Inputs & Forms" data-info-desc="A row of individual numeric digit entry boxes for verifying login codes.">
+              <input type="text" maxlength="1" class="otp-box">
+              <input type="text" maxlength="1" class="otp-box">
+              <input type="text" maxlength="1" class="otp-box">
+              <input type="text" maxlength="1" class="otp-box">
+            </div>
+          </div>
+          <button type="submit" id="btn-signin-submit" class="primary-btn w-full">Sign In</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: CONFIRMATION DIALOG (DESTRUCTIVE ACTIONS) -->
+  <div id="confirm-modal" class="modal-overlay hidden">
+    <div class="modal-dialog-box" data-info-name="confirmation dialog" data-info-category="Overlays & Feedback" data-info-desc="A modal dialog box specifically for confirming destructive actions, blocking interaction until decided.">
+      <div class="modal-header">
+        <h3 id="confirm-modal-title">Confirm Action</h3>
+        <button id="btn-close-confirm" class="close-modal-btn" data-info-name="close button" data-info-category="Inputs & Forms" data-info-desc="A small icon button that dismisses the overlay or panel it's attached to.">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="confirm-modal-message">Are you sure you want to proceed with this destructive action? This cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-confirm-cancel" class="secondary-btn">Cancel</button>
+        <button id="btn-confirm-proceed" class="primary-btn btn-danger">Confirm Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: CHECKOUT WIZARD -->
+  <div id="checkout-modal" class="modal-overlay hidden">
+    <div class="modal-dialog-box checkout-wizard-box" data-info-name="dialog box (modal)" data-info-category="Overlays & Feedback" data-info-desc="A centered dialog window overlaying and blocking interaction with page content, unlike a popup window.">
+      <div class="modal-header">
+        <h3>Checkout Process</h3>
+        <button id="btn-close-checkout" class="close-modal-btn" data-info-name="close button" data-info-category="Inputs & Forms" data-info-desc="A small icon button that dismisses the overlay or panel it's attached to.">&times;</button>
+      </div>
+      
+      <!-- Wizard Progress Stepper -->
+      <div class="wizard-stepper" data-info-name="progress bar" data-info-category="Display & Content" data-info-desc="An animated indicator bar displaying loading, storage, or task completion percentage.">
+        <div class="stepper-step active" data-step="1">Address</div>
+        <div class="stepper-step" data-step="2">Payment</div>
+        <div class="stepper-step" data-step="3">Confirm</div>
+        <div class="wizard-progress-bar-fill" style="width: 33%"></div>
+      </div>
+
+      <div class="modal-body wizard-body">
+        <!-- Step 1: Address Details -->
+        <div id="wizard-step-1" class="wizard-step-panel">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="chk-name">Full Name *</label>
+              <input type="text" id="chk-name" class="text-field" required placeholder="Full Name">
+              <span class="error-msg hidden" id="err-chk-name">Name is required</span>
+            </div>
+            <div class="form-group">
+              <label for="chk-phone">Phone Number *</label>
+              <input type="text" id="chk-phone" class="text-field" required placeholder="Phone Number">
+              <span class="error-msg hidden" id="err-chk-phone">Valid phone is required</span>
+            </div>
+            <div class="form-group">
+              <label for="chk-pincode">Pincode *</label>
+              <input type="text" id="chk-pincode" class="text-field" required placeholder="6-digit postal code">
+              <span class="error-msg hidden" id="err-chk-pincode">Pincode is required</span>
+            </div>
+            <div class="form-group">
+              <label for="chk-state">State *</label>
+              <select id="chk-state" class="select-dropdown" required>
+                <option value="">Select State</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+              </select>
+              <span class="error-msg hidden" id="err-chk-state">State is required</span>
+            </div>
+            <div class="form-group span-full">
+              <label for="chk-instructions">Delivery Instructions</label>
+              <textarea id="chk-instructions" class="text-area" rows="2" placeholder="Leave package at the gate, call before delivery..."></textarea>
+            </div>
+            <div class="form-group">
+              <label for="chk-date">Preferred Delivery Date</label>
+              <input type="date" id="chk-date" class="date-input">
+            </div>
+            <div class="checkbox-notification-group span-full">
+              <label class="checkbox-label">
+                <input type="checkbox" id="chk-save-addr" checked>
+                <span>Save this address for future purchases</span>
+              </label>
+              <div class="toggle-control-item pt-2">
+                <span class="toggle-text">Gift wrap this order</span>
+                <label class="toggle-switch-wrapper" data-info-name="toggle switch" data-info-category="Inputs & Forms" data-info-desc="A sliding on/off control for a single setting, unlike a checkbox which selects multiple items in a list.">
+                  <input type="checkbox" id="chk-giftwrap">
+                  <span class="toggle-switch-slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Payment Type Selection -->
+        <div id="wizard-step-2" class="wizard-step-panel hidden">
+          <h4>Select Payment Method</h4>
+          <div class="radio-group column-layout">
+            <label class="radio-card">
+              <input type="radio" name="payment-method" value="UPI" checked data-info-name="radio buttons" data-info-category="Inputs & Forms" data-info-desc="A group of circle controls where exactly one choice must be chosen, unlike a select dropdown.">
+              <div class="radio-card-content">
+                <strong>🇮🇳 UPI (Paytm / GooglePay / PhonePe)</strong>
+                <p>Pay instantly using your UPI mobile app</p>
+              </div>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="payment-method" value="Card" data-info-name="radio buttons" data-info-category="Inputs & Forms" data-info-desc="A group of circle controls where exactly one choice must be chosen, unlike a select dropdown.">
+              <div class="radio-card-content">
+                <strong>💳 Credit or Debit Card</strong>
+                <p>Visa, MasterCard, RuPay supported</p>
+              </div>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="payment-method" value="COD" data-info-name="radio buttons" data-info-category="Inputs & Forms" data-info-desc="A group of circle controls where exactly one choice must be chosen, unlike a select dropdown.">
+              <div class="radio-card-content">
+                <strong>💵 Cash on Delivery (COD)</strong>
+                <p>Pay in cash or digital code on delivery</p>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Step 3: Review & Confirm -->
+        <div id="wizard-step-3" class="wizard-step-panel hidden">
+          <h4>Order Review</h4>
+          <div class="checkout-review-summary">
+            <div class="review-box">
+              <h5>Shipping Address</h5>
+              <p id="review-shipping-address">User User, Phone: 9876543210</p>
+            </div>
+            <div class="review-box">
+              <h5>Payment Method</h5>
+              <p id="review-payment-method">UPI</p>
+            </div>
+            <div class="review-box">
+              <h5>Order Total</h5>
+              <p>Total items: <span id="review-items-count">0</span></p>
+              <p class="font-bold text-indigo">Amount Due: ₹<span id="review-total-amount">0</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button id="btn-wizard-back" class="secondary-btn hidden">Back</button>
+        <button id="btn-wizard-next" class="primary-btn">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: ADD / EDIT PRODUCT -->
+  <div id="product-modal" class="modal-overlay hidden">
+    <div class="modal-dialog-box form-modal-box" data-info-name="dialog box (modal)" data-info-category="Overlays & Feedback" data-info-desc="A centered dialog window overlaying and blocking interaction with page content, unlike a popup window.">
+      <div class="modal-header">
+        <h3 id="product-modal-title">Add New Product</h3>
+        <button id="btn-close-product" class="close-modal-btn" data-info-name="close button" data-info-category="Inputs & Forms" data-info-desc="A small icon button that dismisses the overlay or panel it's attached to.">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="product-form" class="form-grid">
+          <input type="hidden" id="prod-edit-id">
+          
+          <div class="form-group span-full">
+            <label for="prod-name">Product Name *</label>
+            <input type="text" id="prod-name" class="text-field" required placeholder="e.g. Steel Water Bottle" data-info-name="text fields" data-info-category="Inputs & Forms" data-info-desc="A single-line text input box for capturing user names or other text inputs, unlike a text area.">
+          </div>
+
+          <div class="form-group span-full">
+            <label for="prod-desc">Description</label>
+            <textarea id="prod-desc" class="text-area" rows="3" placeholder="Explain the key details, sizing, material..." data-info-name="text area" data-info-category="Inputs & Forms" data-info-desc="A multi-line text input block enabling extensive user feedback, unlike a text field."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="prod-category">Category *</label>
+            <select id="prod-category" class="select-dropdown" required data-info-name="select dropdown" data-info-category="Inputs & Forms" data-info-desc="A form selector that hides choices until clicked, unlike radio buttons which show all options.">
+              <option value="Electronics">Electronics</option>
+              <option value="Clothing">Clothing</option>
+              <option value="Home Goods">Home Goods</option>
+              <option value="Groceries">Groceries</option>
+              <option value="Sports & Fitness">Sports & Fitness</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="prod-tags">Select Tags (Multi-select)</label>
+            <select id="prod-tags" class="select-dropdown" multiple size="3" data-info-name="multi-select" data-info-category="Inputs & Forms" data-info-desc="A dropdown select panel allowing multiple choices at once, unlike individual checkboxes.">
+              <option value="Featured">Featured Offer</option>
+              <option value="Trending">Trending Now</option>
+              <option value="Deals">Deals of the Day</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="prod-price">Price (₹) *</label>
+            <input type="number" id="prod-price" class="text-field" required min="1" placeholder="999">
+          </div>
+
+          <div class="form-group">
+            <label for="prod-discount">Discount %</label>
+            <div class="slider-wrapper">
+              <input type="range" id="prod-discount" class="slider" min="0" max="90" value="0" data-info-name="slider" data-info-category="Inputs & Forms" data-info-desc="A single-thumb slider selector adjusting a singular scalar value, unlike a range slider.">
+              <span><span id="prod-discount-val">0</span>% Off</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Product Condition</label>
+            <div class="radio-group row-layout">
+              <label class="radio-label">
+                <input type="radio" name="prod-condition" value="new" checked data-info-name="radio buttons" data-info-category="Inputs & Forms" data-info-desc="A group of circle controls where exactly one choice must be chosen, unlike a select dropdown.">
+                <span>New</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="prod-condition" value="refurbished" data-info-name="radio buttons" data-info-category="Inputs & Forms" data-info-desc="A group of circle controls where exactly one choice must be chosen, unlike a select dropdown.">
+                <span>Refurbished</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="prod-file">Product Image</label>
+            <div class="file-upload-box">
+              <input type="file" id="prod-file" class="hidden">
+              <label for="prod-file" class="secondary-btn" data-info-name="file upload" data-info-category="Inputs & Forms" data-info-desc="A file selector block triggering a system file dialog or capturing drag-and-drop media uploads.">Choose Image</label>
+              <span id="prod-file-label" class="helper-text">No file selected</span>
+            </div>
+          </div>
+
+          <div class="checkbox-notification-group span-full">
+            <label class="checkbox-label">
+              <input type="checkbox" id="prod-publish" checked>
+              <span>Publish immediately to catalog</span>
+            </label>
+            <div class="toggle-control-item pt-2">
+              <span class="toggle-text">Active State (Allow shoppers to order)</span>
+              <!-- Toggle Button (styled check/uncheck button) -->
+              <button type="button" id="btn-prod-active" class="toggle-btn-custom active" data-info-name="toggle button" data-info-category="Inputs & Forms" data-info-desc="An interactive on/off button that changes its pressed state when clicked.">
+                Active
+              </button>
+            </div>
+          </div>
+
+          <div class="modal-footer span-full">
+            <button type="button" id="btn-cancel-product" class="secondary-btn">Cancel</button>
+            <button type="submit" class="primary-btn">Save Product</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 5: ADD CATEGORY -->
+  <div id="category-modal" class="modal-overlay hidden">
+    <div class="modal-dialog-box" data-info-name="dialog box (modal)" data-info-category="Overlays & Feedback" data-info-desc="A centered dialog window overlaying and blocking interaction with page content, unlike a popup window.">
+      <div class="modal-header">
+        <h3>Add New Category</h3>
+        <button id="btn-close-cat-modal" class="close-modal-btn" data-info-name="close button" data-info-category="Inputs & Forms" data-info-desc="A small icon button that dismisses the overlay or panel it's attached to.">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="category-form" class="form-grid">
+          <div class="form-group span-full">
+            <label for="cat-name">Category Name *</label>
+            <input type="text" id="cat-name" class="text-field" required placeholder="e.g., Audio accessories">
+          </div>
+          <div class="form-group span-full">
+            <label for="cat-parent">Parent Category / Subcategory</label>
+            <select id="cat-parent" class="select-dropdown">
+              <option value="">None (Top-Level Category)</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Electronics/Audio">Electronics &gt; Audio</option>
+              <option value="Clothing">Clothing</option>
+              <option value="Home Goods">Home Goods</option>
+            </select>
+          </div>
+          <div class="modal-footer span-full">
+            <button type="button" id="btn-cancel-cat-modal" class="secondary-btn">Cancel</button>
+            <button type="submit" class="primary-btn">Add Category</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMAND PALETTE (Ctrl/Cmd + K) -->
+  <div id="command-palette-overlay" class="modal-overlay command-palette-overlay hidden">
+    <div class="command-palette" data-info-name="command palette" data-info-category="Navigation" data-info-desc="A keyboard-triggered search overlay that jumps to any page or product, unlike the navbar search bar which only searches within the catalog listing.">
+      <div class="command-palette-input-row">
+        <span class="command-palette-icon">⌘</span>
+        <input type="text" id="command-palette-input" placeholder="Jump to a page or product...">
+        <kbd>Esc</kbd>
+      </div>
+      <div id="command-palette-results" class="command-palette-results">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 6: KEYBOARD SHORTCUTS HELP -->
+  <div id="shortcuts-modal" class="modal-overlay hidden">
+    <div class="modal-dialog-box" data-info-name="dialog box (modal)" data-info-category="Overlays & Feedback" data-info-desc="A centered dialog window overlaying and blocking interaction with page content, unlike a popup window.">
+      <div class="modal-header">
+        <h3>Keyboard Shortcuts</h3>
+        <button id="btn-close-shortcuts" class="close-modal-btn" data-info-name="close button" data-info-category="Inputs & Forms" data-info-desc="A small icon button that dismisses the overlay or panel it's attached to.">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="shortcuts-list" class="shortcuts-list">
+          <!-- Populated dynamically from KEYBOARD_SHORTCUTS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT RIGHT-CLICK CONTEXT MENU (items populated dynamically by initContextMenu()) -->
+  <div id="product-context-menu" class="context-menu hidden" data-info-name="context menu" data-info-category="Navigation" data-info-desc="A menu opened by right-clicking a product card, unlike a popover which opens on left-click."></div>
+
+  <!-- INFO MODE LABEL FLOATING OVERLAY -->
+  <div id="info-mode-overlay" class="info-floating-label hidden">
+    <div class="info-label-name" id="info-overlay-name">Element Name</div>
+    <div class="info-label-cat" id="info-overlay-cat">Category</div>
+    <div class="info-label-desc" id="info-overlay-desc">Description of the element and what it does.</div>
+  </div>
+
+  <!-- DASHBOARD ORDER DETAIL DRAWER -->
+  <div id="dash-order-drawer-backdrop" class="drawer-backdrop hidden"></div>
+  <div id="dash-order-drawer" class="cart-drawer hidden" data-info-name="drawer" data-info-category="Display & Content" data-info-desc="A side sliding panel containing checkout summaries, turning into a bottom sheet on mobile viewports.">
+    <div class="drawer-header">
+      <h3 id="dash-order-drawer-title">Order Details</h3>
+      <button id="btn-close-dash-order-drawer" class="icon-btn" data-info-name="close button" data-info-category="Inputs & Forms" data-info-desc="A small icon button that dismisses the overlay or panel it's attached to.">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+    </div>
+    <div class="drawer-content" id="dash-order-drawer-content">
+      <!-- Populated dynamically -->
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
